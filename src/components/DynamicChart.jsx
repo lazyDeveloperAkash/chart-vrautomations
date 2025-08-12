@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   LineChart,
   Line,
@@ -18,6 +19,8 @@ export default function DynamicChart() {
     { name: "May", value: 18 },
   ]);
 
+  const navigate = useNavigate();
+
   // Simulate live data updates every 2 seconds
 //   useEffect(() => {
 //     const interval = setInterval(() => {
@@ -33,6 +36,7 @@ export default function DynamicChart() {
 
   return (
     <div className="p-6 bg-white rounded-2xl shadow-lg w-full max-w-3xl mx-auto">
+        <button className="bg-blue-400 rounded-2xl p-4 cursor-pointer" onClick={()=> navigate("/about")}>About</button>
       <h2 className="text-2xl font-bold mb-4 text-center">Dynamic Line Chart</h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
