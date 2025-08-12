@@ -14,17 +14,12 @@ import {
 export default function DynamicChart() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
-  console.log(data, "data");
 
   const navigate = useNavigate();
 
   const fetchData = async (email) => {
     if (!email) return;
     setLoading(true);
-    console.log("fn called");
-    console.log(email);
-    console.log(import.meta.env.VITE_AIRTABLE_TABLE_NAME);
-    console.log(import.meta.env.VITE_AIRTABLE_BASE_ID);
     try {
       const formula = `EMAIL="${email}"`; // Column name must match Airtable exactly
       const url = `https://api.airtable.com/v0/${
@@ -48,6 +43,7 @@ export default function DynamicChart() {
   };
 
   useEffect(() => {
+    setLoading(true);
     const handleMessage = (event) => {
     //   console.log("Message received:", event);
 
@@ -85,19 +81,19 @@ export default function DynamicChart() {
 
   if (loading)
     return (
-      <div className="w-[100vw] h-[100vh] flex items-center justify-center bg-blue-400 text-white">
+      <div className="absolute top-0 left-0 w-[100vw] h-[100vh] flex items-center justify-center bg-blue-400 text-white">
         Loading...
       </div>
     );
 
   return (
     <div className="p-6 bg-white rounded-2xl shadow-lg w-full max-w-3xl mx-auto">
-      <button
+      {/* <button
         className="bg-blue-400 rounded-2xl p-4 cursor-pointer"
         onClick={() => navigate("/about")}
       >
         About
-      </button>
+      </button> */}
       <h2 className="text-2xl font-bold mb-4 text-center">
         Dynamic Line Chart
       </h2>
