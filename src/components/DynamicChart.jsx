@@ -10,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import Loader from "./Loader";
 
 export default function DynamicChart() {
   const [loading, setLoading] = useState(false);
@@ -81,8 +82,8 @@ export default function DynamicChart() {
 
   if (loading)
     return (
-      <div className="absolute top-0 left-0 w-[100vw] h-[100vh] flex items-center justify-center bg-blue-400 text-white">
-        Loading...
+      <div className="absolute top-0 left-0 w-[100vw] h-[100vh] flex items-center justify-center bg-white text-white">
+        <Loader/>
       </div>
     );
 
