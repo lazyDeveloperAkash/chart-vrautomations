@@ -42,11 +42,9 @@ export default function DynamicChart() {
     }
   };
 
-  console.log(
-      window?.logged_in_user || "email not available outside"
-    );
-
   useEffect(() => {
+    const windowParent = window.parent;
+    console.log(windowParent?.logged_in_user?.softr_user_email);
     fetchData(window?.logged_in_user?.softr_user_email);
   }, [window?.logged_in_user]);
 
