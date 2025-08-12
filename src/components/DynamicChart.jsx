@@ -14,11 +14,11 @@ import {
 export default function DynamicChart() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
-  const [email, setEmail] = useState();
+//   const [email, setEmail] = useState();
 
   const navigate = useNavigate();
 
-  const fetchData = async () => {
+  const fetchData = async (email) => {
     if (!email) return;
     setLoading(true);
     console.log("fn called");
@@ -56,7 +56,7 @@ export default function DynamicChart() {
 
       if (event.data?.type === "USER_DATA") {
         console.log("Received user data from Softr:", event.data.payload);
-        setEmail(event.data.payload)
+        // setEmail(event.data.payload)
         fetchData(event.data.payload);
         // You can now store it in state, Redux, context, etc.
       }
