@@ -42,12 +42,13 @@ export default function DynamicChart() {
     }
   };
 
-  useEffect(() => {
-    console.log(
-      window?.logged_in_user?.softr_user_email || "email not available"
+  console.log(
+      window?.logged_in_user || "email not available outside"
     );
+
+  useEffect(() => {
     fetchData(window?.logged_in_user?.softr_user_email);
-  }, []);
+  }, [window?.logged_in_user]);
 
   if (loading)
     return (
