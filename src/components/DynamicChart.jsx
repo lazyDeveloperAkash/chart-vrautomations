@@ -56,7 +56,7 @@ export default function DynamicChart() {
 
       if (event.data?.type === "USER_DATA") {
         console.log("Received user data from Softr:", event.data.payload);
-        setData(event.data.payload)
+        setEmail(event.data.payload)
         // You can now store it in state, Redux, context, etc.
       }
     };
