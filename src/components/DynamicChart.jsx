@@ -44,6 +44,8 @@ export default function DynamicChart() {
 
    useEffect(() => {
     const handleMessage = (event) => {
+
+        console.log(event);
       // Only allow messages from your Softr domain
       if (event.origin !== "https://sonny80979.softr.app") return;
 
