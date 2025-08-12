@@ -22,17 +22,20 @@ export default function DynamicChart() {
     if (!email) return;
     setLoading(true);
     console.log("fn called");
+    console.log(email);
+    console.log(import.meta.env.VITE_AIRTABLE_TABLE_NAME);
+    console.log(import.meta.env.VITE_AIRTABLE_BASE_ID);
     try {
       const formula = `EMAIL="${email}"`; // Column name must match Airtable exactly
       const url = `https://api.airtable.com/v0/${
-        process.env.VITE_AIRTABLE_BASE_ID
+        import.meta.env.VITE_AIRTABLE_BASE_ID
       }/${
-        process.env.VITE_AIRTABLE_TABLE_NAME
+        import.meta.env.VITE_AIRTABLE_TABLE_NAME
       }?filterByFormula=${encodeURIComponent(formula)}`;
 
       const res = await axios.get(url, {
         headers: {
-          Authorization: `Bearer ${process.env.VITE_AIRTABLE_TOKEN}`,
+          Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_TOKEN}`,
         },
       });
 
