@@ -46,22 +46,21 @@ export default function DynamicChart() {
 
   useEffect(() => {
     const handleMessage = (event) => {
-      console.log("Message received:", event);
+    //   console.log("Message received:", event);
 
       // Only allow messages from your Softr domain
       if (event.origin !== "https://sonny80979.softr.app") {
-        console.log("Message rejected - wrong origin:", event.origin);
+        // console.log("Message rejected - wrong origin:", event.origin);
         return;
       }
 
       if (event.data?.type === "USER_DATA") {
         console.log("Received user data from Softr:", event.data.payload);
         setEmail(event.data.payload)
+        fetchData(event.data.payload);
         // You can now store it in state, Redux, context, etc.
       }
     };
-
-    fetchData();
 
     // Set up message listener
     window.addEventListener("message", handleMessage);
