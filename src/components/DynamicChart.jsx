@@ -42,12 +42,15 @@ export default function DynamicChart() {
     }
   };
 
-   useEffect(() => {
+  useEffect(() => {
     const handleMessage = (event) => {
+      console.log("Message received:", event);
 
-        console.log(event);
       // Only allow messages from your Softr domain
-      if (event.origin !== "https://sonny80979.softr.app") return;
+      if (event.origin !== "https://sonny80979.softr.app") {
+        console.log("Message rejected - wrong origin:", event.origin);
+        return;
+      }
 
       if (event.data?.type === "USER_DATA") {
         console.log("Received user data from Softr:", event.data.payload);
@@ -55,10 +58,23 @@ export default function DynamicChart() {
       }
     };
 
+    // Set up message listener
     window.addEventListener("message", handleMessage);
+
+    // Send ready signal to parent
+    const sendReadySignal = () => {
+      console.log("Sending ready signal to parent");
+      window.parent.postMessage(
+        { type: "IFRAME_READY" },
+        "https://sonny80979.softr.app"
+      );
+    };
+
+    // Send ready signal after a short delay to ensure parent is listening
+    setTimeout(sendReadySignal, 100);
+
     return () => window.removeEventListener("message", handleMessage);
   }, []);
-
 
   if (loading)
     return (
