@@ -14,12 +14,14 @@ import {
 export default function DynamicChart() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
+  const [email, setEmail] = useState();
 
   const navigate = useNavigate();
 
-  const fetchData = async (email) => {
+  const fetchData = async () => {
     if (!email) return;
     setLoading(true);
+    console.log("fn called");
     try {
       const formula = `EMAIL="${email}"`; // Column name must match Airtable exactly
       const url = `https://api.airtable.com/v0/${
@@ -54,9 +56,12 @@ export default function DynamicChart() {
 
       if (event.data?.type === "USER_DATA") {
         console.log("Received user data from Softr:", event.data.payload);
+        setData(event.data.payload)
         // You can now store it in state, Redux, context, etc.
       }
     };
+
+    fetchData();
 
     // Set up message listener
     window.addEventListener("message", handleMessage);
