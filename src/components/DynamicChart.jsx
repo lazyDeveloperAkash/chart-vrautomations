@@ -42,29 +42,20 @@ export default function DynamicChart() {
     }
   };
 
-  useEffect(() => {
-  const handleMessage = (event) => {
-    console.log("📩 Raw event:", event);
+   useEffect(() => {
+    const handleMessage = (event) => {
+      // Only allow messages from your Softr domain
+      if (event.origin !== "https://sonny80979.softr.app") return;
 
-    // ✅ Make sure Softr origin matches exactly
-    if (event.origin !== "https://sonny80979.softr.app") {
-      console.warn("Blocked message from:", event.origin);
-      return;
-    }
+      if (event.data?.type === "USER_DATA") {
+        console.log("Received user data from Softr:", event.data.payload);
+        // You can now store it in state, Redux, context, etc.
+      }
+    };
 
-    if (event.data?.type === "USER_DATA") {
-      console.log("✅ Got user:", event.data.payload);
-    }
-  };
-
-  // Attach listener
-  window.addEventListener("message", handleMessage);
-
-  // Cleanup listener when component unmounts
-  return () => {
-    window.removeEventListener("message", handleMessage);
-  };
-}, []);
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
 
   if (loading)
