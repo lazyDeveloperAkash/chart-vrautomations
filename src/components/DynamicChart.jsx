@@ -44,6 +44,7 @@ export default function DynamicChart() {
 
   useEffect(() => {
     const handleMessage = (event) => {
+        console.log("object");
       if (event.origin !== "https://sonny80979.softr.app") return; // Security check
       if (event.data.type === "USER_DATA") {
         console.log("Got user:", event.data.payload);
