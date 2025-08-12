@@ -39,7 +39,7 @@ export default function DynamicChart() {
         },
       });
 
-      setData(res.data.records.filter((obj)=> obj.fields));
+      setData(res.data.records.map((obj)=> obj.fields));
     } catch (error) {
       console.error("Error fetching Airtable data", error);
     } finally {
