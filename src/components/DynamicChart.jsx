@@ -37,16 +37,22 @@ export default function DynamicChart() {
       setData(res.data.records);
     } catch (error) {
       console.error("Error fetching Airtable data", error);
-    }finally{
-        setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    const windowParent = window.parent;
-    console.log(windowParent?.logged_in_user?.softr_user_email);
-    fetchData(window?.logged_in_user?.softr_user_email);
-  }, [window?.logged_in_user]);
+    const handleMessage = (event) => {
+      if (event.origin !== "https://sonny80979.softr.app") return; // Security check
+      if (event.data.type === "USER_DATA") {
+        console.log("Got user:", event.data.payload);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   if (loading)
     return (
